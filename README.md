@@ -40,7 +40,7 @@ Sample post data:
 ```
 
 ## PUT /badges/< owner >/< project >/< name >
-Update a badge **TBD**
+Update an existing badge or create a new one if one doesn't exist
 
 ### JSON data
 * subject - (defaults to `name`) What you want to track the value/status for
