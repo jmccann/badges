@@ -11,7 +11,10 @@ describe 'post /badges/:owner/:project/:name' do
   end
 
   it 'should insert the Badge' do
-    post '/badges/jmccann/app1/test'
+    post '/badges/jmccann/app1/test', {
+      color: 'green',
+      status: '97%'
+    }.to_json, headers
 
     # Make sure we are redirecting
     expect(last_response.status).to eq 302
@@ -19,7 +22,7 @@ describe 'post /badges/:owner/:project/:name' do
 
     # Make sure we get back object details
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at',
+      .to include('id', 'created_at', 'image',
                   'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
                   'full_name' => 'jmccann/app1/test')
 

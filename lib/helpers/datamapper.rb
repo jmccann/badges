@@ -14,7 +14,7 @@ class Badge
   property :owner, String, required: true
   property :project, String, required: true
   property :full_name, String
-  # property :image, Binary, required: true
+  property :image, String, required: true, length: 1000
   property :created_at, DateTime
 end
 

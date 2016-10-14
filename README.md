@@ -15,8 +15,50 @@ Get details on a specific badge
 ## POST /badges/< owner >/< project >/< name >
 Create a new badge
 
+### JSON Data
+* subject - (defaults to `name`) What you want to track the value/status for
+* color - The color of the badge
+* status - The value/status of the subject
+
+Visit https://shields.io towards the bottom at **Your Badge** for an idea of configuration options.
+
+Sample post data:
+```
+{
+  "color":"green",
+  "status":"passing"
+}
+
+{
+  "subject":"coverage",
+  "color":"red",
+  "status":"21%"
+}
+```
+
 ## PUT /badges/< owner >/< project >/< name >
 Update a badge **TBD**
+
+### JSON data
+* subject - (defaults to `name`) What you want to track the value/status for
+* color - The color of the badge
+* status - The value/status of the subject
+
+Visit https://shields.io towards the bottom at **Your Badge** for an idea of configuration options.
+
+Sample post data:
+```
+{
+  "color":"green",
+  "status":"passing"
+}
+
+{
+  "subject":"coverage",
+  "color":"red",
+  "status":"21%"
+}
+```
 
 ## DELETE /badges/< owner >/< project >/< name >
 Delete a badge
