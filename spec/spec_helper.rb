@@ -22,6 +22,18 @@ RSpec.configure do |config|
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
   DataMapper.finalize
   Badge.auto_migrate!
+
+  config.before(:each) do
+    Badge.all.destroy
+    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
+              name: 'coverage', created_at: DateTime.now).save
+    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
+              name: 'climate', created_at: DateTime.now).save
+    Badge.new(owner: 'jmccann', project: 'app2', image: '1',
+              name: 'coverage', created_at: DateTime.now).save
+    Badge.new(owner: 'jdoe', project: 'app1', image: '1',
+              name: 'coverage', created_at: DateTime.now).save
+  end
 end
 
 def app

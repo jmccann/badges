@@ -1,18 +1,6 @@
 require 'spec_helper'
 
 describe 'get /badges' do
-  before do
-    Badge.all.destroy
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'climate', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app2', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jdoe', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-  end
-
   it 'should list badges' do
     get '/badges'
     expect(last_response).to be_ok
@@ -26,18 +14,6 @@ describe 'get /badges' do
 end
 
 describe 'get /badges/:owner' do
-  before do
-    Badge.all.destroy
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'climate', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app2', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jdoe', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-  end
-
   it 'should return all badges for an owner' do
     get '/badges/jmccann'
 
@@ -47,18 +23,6 @@ describe 'get /badges/:owner' do
 end
 
 describe 'get /badges/:owner/:project/:name' do
-  before do
-    Badge.all.destroy
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'climate', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app2', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jdoe', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-  end
-
   it 'should return 1 badge' do
     get '/badges/jmccann/app1/climate'
 

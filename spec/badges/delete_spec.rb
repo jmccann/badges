@@ -1,18 +1,6 @@
 require 'spec_helper'
 
 describe 'delete /badges/:owner/:project/:name' do
-  before do
-    Badge.all.destroy
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app1', image: '1',
-              name: 'climate', created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app2', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-    Badge.new(owner: 'jdoe', project: 'app1', image: '1',
-              name: 'coverage', created_at: DateTime.now).save
-  end
-
   it 'should delete the Badge' do
     # Delete the ID
     delete '/badges/jmccann/app1/climate'
