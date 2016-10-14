@@ -1,0 +1,32 @@
+pipeline:
+  unit_testing:
+    image: ruby:2.3
+    commands:
+      # Install Gems
+      - rm -f Gemfile.lock
+      - bundle install --path .bundler
+
+      # Run Tests
+      - rm -f badges.db
+      - bundle exec rake
+      - rm -f badges.db
+
+  # docker_latest:
+  #   when:
+  #     branch: master
+  #   image: plugins/docker:latest
+  #   username: jmccann
+  #   repo: jmccann/sinatra-example
+  #   tag: latest
+  #   file: Dockerfile
+  #   insecure: false
+  #
+  # docker_tag:
+  #   when:
+  #     event: tag
+  #   image: plugins/docker:latest
+  #   username: jmccann
+  #   repo: jmccann/sinatra-example
+  #   tag: ${DRONE_TAG##v}
+  #   file: Dockerfile
+  #   insecure: false

@@ -1,0 +1,19 @@
+# Allow latest gems to be used by not pinning gem versions. A note: this can
+# causes problems if a dependent gem is updated in the middle of the ci/cd
+# process.
+# TODO: https://git.target.com/practices/ruby-web-app/issues/6
+Gemfile.lock
+.bundler/
+
+# Test coverage reports are generated to this folder. Since coverage reports
+# change constantly and because they are easy to generate as needed, these files
+# do not need to be stored in source code control. Doing so will add a lot of
+# noise to commits.
+public/coverage/
+coverage/
+
+# Do not commit sqlite DB used in testing
+badges.db
+
+# Do not accidently commit drone secrets file
+secrets-file
