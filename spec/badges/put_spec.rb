@@ -40,11 +40,35 @@ describe 'put /badges/:owner/:project/:name' do
 
     # Make sure we are redirecting
     expect(last_response.status).to eq 302
+    expect(last_response).to be_redirect
     follow_redirect!
 
     expect(JSON.parse(last_response.body))
       .to include('id', 'created_at', 'full_name',
                   'owner' => 'jmccann', 'project' => 'app1',
                   'name' => 'climate')
+  end
+
+  it 'creates badge if it doesn not exist' do
+    expect(Badge.count).to eq 4
+    expect(Badge).to receive(:new).and_call_original
+
+    put '/badges/jmccann/app1/test', {
+      color: 'green',
+      status: '97%25'
+    }.to_json, headers
+
+    # Make sure we are redirecting
+    expect(last_response.status).to eq 302
+    follow_redirect!
+
+    # Make sure we get back object details
+    expect(JSON.parse(last_response.body))
+      .to include('id', 'created_at', 'image',
+                  'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
+                  'full_name' => 'jmccann/app1/test')
+
+    # Make sure DB count increased by 1
+    expect(Badge.count).to eq 5
   end
 end

@@ -15,12 +15,20 @@ put '/badges/:owner/:project/:name' do |owner, project, name|
   url = badge_url(subject, data['status'], data['color'])
 
   badges = Badge.all(owner: owner, project: project, name: name)
-  unless badges.count == 1
+  if badges.count > 1
     return [500, message: "Expected 1 badge, got #{badges.count}"]
   end
 
-  badge = badges.first
-  badge.image = open(url).read
+  badge = nil
+  if badges.count.zero?
+    full_name = "#{owner}/#{project}/#{name}"
+    badge = Badge.new(owner: owner, project: project, name: name,
+                      full_name: full_name, image: open(url).read,
+                      created_at: DateTime.now)
+  else
+    badge = badges.first
+    badge.image = open(url).read
+  end
 
   # After creating object return details of it
   redirect "/badges/#{badge.full_name}" if badge.save
