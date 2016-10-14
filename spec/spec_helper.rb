@@ -34,6 +34,23 @@ def svg # rubocop:disable MethodLength
   '<text x="47.5" y="14">97%</text></g></svg>'
 end
 
+def svg_27 # rubocop:disable MethodLength
+  '<svg xmlns="http://www.w3.org/2000/svg" width="66" height="20">' \
+  '<linearGradient id="b" x2="0" y2="100%">' \
+  '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>' \
+  '<stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a">' \
+  '<rect width="66" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)">' \
+  '<path fill="#555" d="M0 0h31v20H0z"/>' \
+  '<path fill="#97CA00" d="M31 0h35v20H31z"/>' \
+  '<path fill="url(#b)" d="M0 0h66v20H0z"/></g>' \
+  '<g fill="#fff" text-anchor="middle" ' \
+  'font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">' \
+  '<text x="15.5" y="15" fill="#010101" fill-opacity=".3">test</text>' \
+  '<text x="15.5" y="14">test</text>' \
+  '<text x="47.5" y="15" fill="#010101" fill-opacity=".3">27%</text>' \
+  '<text x="47.5" y="14">27%</text></g></svg>'
+end
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
@@ -43,13 +60,17 @@ RSpec.configure do |config|
   config.before(:each) do
     Badge.all.destroy
     Badge.new(owner: 'jmccann', project: 'app1', image: svg,
-              name: 'coverage', created_at: DateTime.now).save
+              name: 'coverage', full_name: 'jmccann/app1/coverage',
+              created_at: DateTime.now).save
     Badge.new(owner: 'jmccann', project: 'app1', image: svg,
-              name: 'climate', created_at: DateTime.now).save
+              name: 'climate', full_name: 'jmccann/app1/climate',
+              created_at: DateTime.now).save
     Badge.new(owner: 'jmccann', project: 'app2', image: svg,
-              name: 'coverage', created_at: DateTime.now).save
+              name: 'coverage', full_name: 'jmccann/app2/coverage',
+              created_at: DateTime.now).save
     Badge.new(owner: 'jdoe', project: 'app1', image: svg,
-              name: 'coverage', created_at: DateTime.now).save
+              name: 'coverage', full_name: 'jdoe/app1/coverage',
+              created_at: DateTime.now).save
   end
 end
 
