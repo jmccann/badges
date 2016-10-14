@@ -7,7 +7,7 @@ require_relative '../helpers/data'
 
 def badge_url(subject, status, color)
   query = "#{subject}-#{status}-#{color}"
-  URI.encode "https://img.shields.io/badge/#{query}.svg"
+  "https://img.shields.io/badge/#{query}.svg"
 end
 
 post '/badges/:owner/:project/:name' do |owner, project, name|

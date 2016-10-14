@@ -18,7 +18,7 @@ describe 'post /badges/:owner/:project/:name' do
   it 'should insert the Badge' do
     post '/badges/jmccann/app1/test', {
       color: 'green',
-      status: '97%'
+      status: '97%25'
     }.to_json, headers
 
     # Make sure we are redirecting
