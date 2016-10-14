@@ -6,19 +6,19 @@ This application allows you to generate and cache badges for all sorts of status
 ## GET /badges
 Get a list of all badges
 
-## GET /badges/<owner>
+## GET /badges/< owner >
 Get a list of all badges for a specific owner
 
-## GET /badges/<owner>/<project>/<name>
+## GET /badges/< owner >/< project >/< name >
 Get details on a specific badge
 
-## POST /badges/<owner>/<project>/<name>
+## POST /badges/< owner >/< project >/< name >
 Create a new badge
 
-## PUT /badges/<owner>/<project>/<name>
+## PUT /badges/< owner >/< project >/< name >
 Update a badge **TBD**
 
-## DELETE /badges/<owner>/<project>/<name>
+## DELETE /badges/< owner >/< project >/< name >
 Delete a badge
 
 # Contributing
