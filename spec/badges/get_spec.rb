@@ -39,3 +39,25 @@ describe 'get /badges/:owner/:project/:name' do
                   'name' => 'climate')
   end
 end
+
+describe 'get /badges/:owner/:project/:name/badge.svg' do
+  it 'should return 1 badge' do
+    get '/badges/jmccann/app1/climate/badge.svg'
+
+    expect(last_response).to be_ok
+    expect(last_response.body).to be_a String
+  end
+
+  it 'should return with svg content_type' do
+    get '/badges/jmccann/app1/climate/badge.svg'
+
+    expect(last_response).to be_ok
+    expect(last_response.content_type).to eq 'image/svg+xml'
+  end
+
+  it 'should return the badge details' do
+    get '/badges/jmccann/app1/climate/badge.svg'
+
+    expect(last_response.body).to match(/<svg/)
+  end
+end

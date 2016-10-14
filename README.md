@@ -12,6 +12,9 @@ Get a list of all badges for a specific owner
 ## GET /badges/< owner >/< project >/< name >
 Get details on a specific badge
 
+## GET /badges/< owner >/< project >/< name >/badge.svg
+Get SVG image of a badge
+
 ## POST /badges/< owner >/< project >/< name >
 Create a new badge
 
