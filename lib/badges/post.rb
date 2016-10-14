@@ -4,13 +4,11 @@ require 'json'
 require_relative '../helpers/datamapper'
 require_relative '../helpers/data'
 
-post '/badges' do
-  extra_data = {
-    full_name: "#{data['owner']}/#{data['project']}/#{data['name']}",
-    created_at: DateTime.now
-  }
-
-  badge = Badge.new(data.merge(extra_data))
+post '/badges/:owner/:project/:name' do |owner, project, name|
+  full_name = "#{owner}/#{project}/#{name}"
+  badge = Badge.new(owner: owner, project: project, name: name,
+                    full_name: full_name,
+                    created_at: DateTime.now)
 
   # After creating object return details of it
   redirect "/badges/#{badge.full_name}" if badge.save
