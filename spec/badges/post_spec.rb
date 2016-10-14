@@ -6,8 +6,13 @@ describe 'post /badges/:owner/:project/:name' do
     { 'Content-Type' => 'application/json' }
   end
 
+  let(:open_return) do
+    StringIO.new svg
+  end
+
   before do
     Badge.all.destroy
+    allow(OpenURI).to receive(:open_uri).and_return open_return
   end
 
   it 'should insert the Badge' do

@@ -13,11 +13,10 @@ end
 post '/badges/:owner/:project/:name' do |owner, project, name|
   subject = data.key?('subject') ? data['subject'] : name
   url = badge_url(subject, data['status'], data['color'])
-  svg = open(url).read
 
   full_name = "#{owner}/#{project}/#{name}"
   badge = Badge.new(owner: owner, project: project, name: name,
-                    full_name: full_name, image: svg,
+                    full_name: full_name, image: open(url).read,
                     created_at: DateTime.now)
 
   # After creating object return details of it
