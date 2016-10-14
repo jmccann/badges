@@ -5,11 +5,6 @@ require 'open-uri'
 require_relative '../helpers/datamapper'
 require_relative '../helpers/data'
 
-def badge_url(subject, status, color)
-  query = "#{subject}-#{status}-#{color}"
-  "https://img.shields.io/badge/#{query}.svg"
-end
-
 put '/badges/:owner/:project/:name' do |owner, project, name|
   subject = data.key?('subject') ? data['subject'] : name
   url = badge_url(subject, data['status'], data['color'])
@@ -21,10 +16,7 @@ put '/badges/:owner/:project/:name' do |owner, project, name|
 
   badge = nil
   if badges.count.zero?
-    full_name = "#{owner}/#{project}/#{name}"
-    badge = Badge.new(owner: owner, project: project, name: name,
-                      full_name: full_name, image: open(url).read,
-                      created_at: DateTime.now)
+    badge = new_badge(owner, project, name, data)
   else
     badge = badges.first
     badge.image = open(url).read
