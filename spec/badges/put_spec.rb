@@ -5,14 +5,6 @@ describe 'put /badges/:owner/:project/:name' do
     { 'Content-Type' => 'application/json' }
   end
 
-  let(:open_return) do
-    StringIO.new test_svg_27
-  end
-
-  before do
-    allow(OpenURI).to receive(:open_uri).and_return open_return
-  end
-
   it 'updates the badge' do
     badge = Badge.all(owner: 'jmccann', project: 'app1', name: 'climate').first
     expect(badge.image).to match(/>97%</)

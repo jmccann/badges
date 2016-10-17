@@ -1,13 +1,13 @@
 require 'sinatra'
 require 'json'
-require 'open-uri'
+require 'uri'
 
 require_relative '../helpers/datamapper'
 require_relative '../helpers/data'
+require_relative '../helpers/svg'
 
 put '/badges/:owner/:project/:name' do |owner, project, name|
   subject = data.key?('subject') ? data['subject'] : name
-  url = badge_url(subject, data['status'], data['color'])
 
   badges = Badge.all(owner: owner, project: project, name: name)
   if badges.count > 1
@@ -19,7 +19,7 @@ put '/badges/:owner/:project/:name' do |owner, project, name|
     badge = new_badge(owner, project, name, data)
   else
     badge = badges.first
-    badge.image = open(url).read
+    badge.image = svg(subject, URI.decode(data['status']), data['color'])
   end
 
   # After creating object return details of it
