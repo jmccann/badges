@@ -14,10 +14,10 @@ COPY Gemfile /opt/app/Gemfile
 WORKDIR /opt/app
 
 RUN apk update && \
-    apk add alpine-sdk openssl-dev ruby-dev openssl-dev sqlite-dev \
-            ruby ruby-bundler ruby-io-console sqlite-libs && \
+    apk add alpine-sdk openssl-dev ruby-dev openssl-dev sqlite-dev imagemagick-dev \
+            ruby ruby-bundler ruby-io-console sqlite-libs imagemagick && \
     bundle install --without development test && \
-    apk -U --purge del alpine-sdk openssl-dev ruby-dev openssl-dev sqlite-dev && \
+    apk -U --purge del alpine-sdk openssl-dev ruby-dev openssl-dev sqlite-dev imagemagick-dev && \
     rm -rf /var/cache/apk/*
 
 COPY lib /opt/app/lib
