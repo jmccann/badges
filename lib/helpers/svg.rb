@@ -1,7 +1,7 @@
 require 'rasem'
 require 'rmagick'
 
-def svg(subject, value, color = 'green')
+def svg(subject, value, color = 'green') # rubocop:disable AbcSize, MethodLength
   color = respond_to?(color, :include_private) ? method(color).call : color
 
   subject_width = text_width subject
