@@ -7,7 +7,7 @@ describe 'post /badges/:owner/:project/:name' do
   end
 
   let(:open_return) do
-    StringIO.new svg
+    StringIO.new test_svg
   end
 
   before do

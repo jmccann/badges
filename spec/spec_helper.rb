@@ -17,7 +17,7 @@ Dir['lib/**/*.rb'].each do |file|
   require ::File.expand_path("../../#{file.gsub('.rb', '')}", __FILE__)
 end
 
-def svg # rubocop:disable MethodLength
+def test_svg # rubocop:disable MethodLength
   '<svg xmlns="http://www.w3.org/2000/svg" width="66" height="20">' \
   '<linearGradient id="b" x2="0" y2="100%">' \
   '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>' \
@@ -34,7 +34,7 @@ def svg # rubocop:disable MethodLength
   '<text x="47.5" y="14">97%</text></g></svg>'
 end
 
-def svg_27 # rubocop:disable MethodLength
+def test_svg_27 # rubocop:disable MethodLength
   '<svg xmlns="http://www.w3.org/2000/svg" width="66" height="20">' \
   '<linearGradient id="b" x2="0" y2="100%">' \
   '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>' \
@@ -59,16 +59,16 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Badge.all.destroy
-    Badge.new(owner: 'jmccann', project: 'app1', image: svg,
+    Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'coverage', full_name: 'jmccann/app1/coverage',
               created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app1', image: svg,
+    Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'climate', full_name: 'jmccann/app1/climate',
               created_at: DateTime.now).save
-    Badge.new(owner: 'jmccann', project: 'app2', image: svg,
+    Badge.new(owner: 'jmccann', project: 'app2', image: test_svg,
               name: 'coverage', full_name: 'jmccann/app2/coverage',
               created_at: DateTime.now).save
-    Badge.new(owner: 'jdoe', project: 'app1', image: svg,
+    Badge.new(owner: 'jdoe', project: 'app1', image: test_svg,
               name: 'coverage', full_name: 'jdoe/app1/coverage',
               created_at: DateTime.now).save
   end

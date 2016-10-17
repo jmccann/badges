@@ -5,6 +5,8 @@ gem 'bigdecimal', '~> 1.2' # Dependency for datamapper
 gem 'dm-sqlite-adapter', '~> 1.2'
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib', '~> 1.4'
+gem 'rasem', '~> 0.7'
+gem 'rmagick', '~> 2.16'
 
 group :test do
   gem 'rack-test', '~> 0.6'
