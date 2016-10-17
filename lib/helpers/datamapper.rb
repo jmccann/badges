@@ -10,9 +10,9 @@ DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
 class Badge
   include DataMapper::Resource
   property :id, Serial
-  property :name, String, required: true
-  property :owner, String, required: true
-  property :project, String, required: true
+  property :name, String, required: true, key: true
+  property :owner, String, required: true, key: true
+  property :project, String, required: true, key: true
   property :full_name, String
   property :image, String, required: true, length: 1000
   property :created_at, DateTime
