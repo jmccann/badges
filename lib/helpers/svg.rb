@@ -1,8 +1,33 @@
 require 'rasem'
 require 'rmagick'
 
+def get_hex_color(color, value)
+  return color if color =~ /#/
+  return color_from_range value.to_i if value =~ /\A[-+]?\d+\z/
+  return method(color).call if respond_to?(color, :include_private)
+  raise 'Could not determine color'
+end
+
+def color_from_range(int) # rubocop:disable MethodLength
+  case int
+  when 95..100
+    brightgreen
+  when 90..94
+    green
+  when 85..89
+    yellowgreen
+  when 80..84
+    yellow
+  when 70..79
+    orange
+  else
+    red
+  end
+end
+
 def svg(subject, value, color = 'green') # rubocop:disable AbcSize, MethodLength
-  color = respond_to?(color, :include_private) ? method(color).call : color
+  # color = respond_to?(color, :include_private) ? method(color).call : color
+  color = get_hex_color(color, value)
 
   subject_width = text_width subject
   value_width = text_width value
@@ -64,8 +89,28 @@ def svg(subject, value, color = 'green') # rubocop:disable AbcSize, MethodLength
   img.to_s
 end
 
+def brightgreen
+  '#4C1'
+end
+
 def green
   '#97CA00'
+end
+
+def yellowgreen
+  '#A4A61D'
+end
+
+def yellow
+  '#DFB317'
+end
+
+def orange
+  '#FE7D37'
+end
+
+def red
+  '#E05D44'
 end
 
 #
