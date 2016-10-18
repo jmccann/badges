@@ -3,6 +3,9 @@ require 'data_mapper'
 
 # need install dm-sqlite-adapter
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
+configure :test do
+  DataMapper.setup(:default, 'sqlite::memory:')
+end
 
 #
 # Data structure for a Badge

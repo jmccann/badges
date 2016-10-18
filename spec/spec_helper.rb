@@ -12,6 +12,7 @@ end
 # so we have to override that unless we want to set RACK_ENV=test from the
 # command line when we run rake spec.  That's tedious, so do it here.
 ENV['RACK_ENV'] ||= 'test'
+set :environment, :test
 
 Dir['lib/**/*.rb'].each do |file|
   require ::File.expand_path("../../#{file.gsub('.rb', '')}", __FILE__)
@@ -36,12 +37,9 @@ end
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
-  DataMapper.finalize
-  Badge.auto_migrate!
 
   config.before(:each) do
-    Badge.all.destroy
+    Badge.auto_migrate!
     Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'coverage', full_name: 'jmccann/app1/coverage',
               created_at: DateTime.now).save
