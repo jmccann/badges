@@ -1,15 +1,35 @@
+services:
+  database:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=badges
+
 pipeline:
   unit_testing:
     image: ruby:2.3
+    environment:
+      - DATABASE_HOST=127.0.0.1:5432
+      - DATABASE_NAME=badges
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
     commands:
+      # Install/Configure ImageMagick
+      - apt update
+      - apt install -y imagemagick mlocate
+      - updatedb
+      - wget http://www.imagemagick.org/Usage/scripts/imagick_type_gen
+      - perl /drone/src/imagick_type_gen > /etc/ImageMagick-6/type.xml
+      - rm -f imagick_type_gen
+
       # Install Gems
       - rm -f Gemfile.lock
+      - apt install -y libpq-dev postgresql-server-dev-all
       - bundle install --path .bundler
 
       # Run Tests
-      - rm -f badges.db
       - bundle exec rake
-      - rm -f badges.db
 
   # docker_latest:
   #   when:

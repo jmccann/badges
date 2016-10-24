@@ -1,11 +1,20 @@
 require 'sinatra'
 require 'data_mapper'
 
-# need install dm-sqlite-adapter
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
-configure :test do
-  DataMapper.setup(:default, 'sqlite::memory:')
+# need install dm-postgres-adapter
+def postgres_connection # rubocop:disable AbcSize
+  raise "Please provide \"ENV['DATABASE_USER']\"" if ENV['DATABASE_USER'].nil?
+  if ENV['DATABASE_PASSWORD'].nil?
+    raise "Please provide \"ENV['DATABASE_PASSWORD']\""
+  end
+  raise "Please provide \"ENV['DATABASE_HOST']\"" if ENV['DATABASE_HOST'].nil?
+  raise "Please provide \"ENV['DATABASE_NAME']\"" if ENV['DATABASE_NAME'].nil?
+
+  "postgres://#{ENV['DATABASE_USER']}:#{ENV['DATABASE_PASSWORD']}" \
+  "@#{ENV['DATABASE_HOST']}/#{ENV['DATABASE_NAME']}"
 end
+
+DataMapper.setup(:default, postgres_connection)
 
 #
 # Data structure for a Badge
