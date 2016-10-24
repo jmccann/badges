@@ -10,10 +10,8 @@ pipeline:
   unit_testing:
     image: ruby:2.3
     environment:
-      - DATABASE_HOST=127.0.0.1:5432
-      - DATABASE_NAME=badges
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=mysecretpassword
+      - DATABASE_DRIVER=postgres
+      - DATABASE_CONFIG=postgres://postgres:mysecretpassword@127.0.0.1:5432/badges
     commands:
       # Install/Configure ImageMagick
       - apt update

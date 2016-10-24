@@ -1,6 +1,28 @@
 # Badges
 This application allows you to generate and cache badges for all sorts of statuses you may want for your `README.md`.  It allows you to update the badge while maintaining a static URL for your `README.md`.
 
+# Database
+
+## SQLite
+
+Badges uses an embedded SQLite as the default database with zero configuration required. Override the default SQLite database configuration use the following environment variables:
+
+```
+DATABASE_DRIVER=sqlite3
+DATABASE_CONFIG=/var/lib/drone/drone.sqlite
+```
+
+## Postgres
+
+Configure a Postgres database backend:
+
+```
+DATABASE_DRIVER=postgres
+DATABASE_CONFIG=postgres://root:pa55word@127.0.0.1:5432/badges
+```
+
+See the official [postgres connection string documentation](https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING) for a complete set of configuration options and examples.
+
 # Endpoints
 
 ## GET /badges
