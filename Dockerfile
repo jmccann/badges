@@ -23,9 +23,9 @@ RUN apt update && \
 RUN echo 'gem: --no-rdoc --no-ri' > ~/.gemrc
 COPY Gemfile /opt/app/Gemfile
 RUN apt update && \
-    apt install -y libmagick++-dev && \
+    apt install -y libmagick++-dev libpq-dev postgresql-server-dev-all && \
     bundle install --without development test && \
-    apt purge -y libmagick++-dev && \
+    apt purge -y libmagick++-dev libpq-dev postgresql-server-dev-all && \
     apt autoremove -y && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
