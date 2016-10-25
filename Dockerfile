@@ -16,16 +16,16 @@ ADD webapp.conf /etc/nginx/sites-enabled/webapp.conf
 
 # Install permanent packages
 RUN apt update && \
-    apt install -y imagemagick && \
+    apt install -y imagemagick libpq-dev && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install and remove packages required for gem installation and install gems
 RUN echo 'gem: --no-rdoc --no-ri' > ~/.gemrc
 COPY Gemfile /opt/app/Gemfile
 RUN apt update && \
-    apt install -y libmagick++-dev libpq-dev postgresql-server-dev-all && \
+    apt install -y libmagick++-dev postgresql-server-dev-all && \
     bundle install --without development test && \
-    apt purge -y libmagick++-dev libpq-dev postgresql-server-dev-all && \
+    apt purge -y libmagick++-dev postgresql-server-dev-all && \
     apt autoremove -y && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -40,6 +40,7 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy over app
+ADD app-env.conf /etc/nginx/main.d/app-env.conf
 COPY config.ru /opt/app/config.ru
 COPY lib /opt/app/lib
 RUN chown -R app /opt/app
