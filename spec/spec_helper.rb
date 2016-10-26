@@ -12,7 +12,10 @@ end
 # so we have to override that unless we want to set RACK_ENV=test from the
 # command line when we run rake spec.  That's tedious, so do it here.
 ENV['RACK_ENV'] ||= 'test'
-set :environment, :test
+set :environment, :development
+if !ENV['DRONE_BUILD_STARTED'].nil? && ENV['DRONE_BUILD_STARTED'].to_i.zero?
+  set :environment, :test
+end
 
 Dir['lib/**/*.rb'].each do |file|
   require ::File.expand_path("../../#{file.gsub('.rb', '')}", __FILE__)

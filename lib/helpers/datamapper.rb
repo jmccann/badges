@@ -1,10 +1,16 @@
 require 'sinatra'
 require 'data_mapper'
 
-if ENV['DATABASE_DRIVER'] == 'sqlite3'
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/badges.db")
-else
-  DataMapper.setup(:default, ENV['DATABASE_CONFIG'])
+configure :production, :test do
+  if ENV['DATABASE_DRIVER'] == 'sqlite3'
+    DataMapper.setup(:default, "sqlite3://#{ENV['DATABASE_CONFIG']}")
+  else
+    DataMapper.setup(:default, ENV['DATABASE_CONFIG'])
+  end
+end
+
+configure :development do
+  DataMapper.setup(:default, 'sqlite::memory:')
 end
 
 #
