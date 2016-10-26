@@ -14,7 +14,7 @@ describe 'svg helper' do
   end
 
   it 'generates predefined color' do
-    expect(svg('test', 'value', 'green')).to match(/#97CA00/)
+    expect(svg('test', '0', 'green')).to match(/#97CA00/)
   end
 
   it 'passes hex color' do
