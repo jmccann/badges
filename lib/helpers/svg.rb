@@ -3,7 +3,7 @@ require 'rmagick'
 
 def get_hex_color(color, value)
   return color if color =~ /#/
-  return color_from_range value.to_i if value =~ /\A[-+]?\d+\z/
+  return color_from_range(value.to_i) if value =~ /(\d+(\.\d+)?)/
   return method(color).call if respond_to?(color, :include_private)
   raise 'Could not determine color'
 end
@@ -26,7 +26,6 @@ def color_from_range(int) # rubocop:disable MethodLength
 end
 
 def svg(subject, value, color = 'green') # rubocop:disable AbcSize, MethodLength
-  # color = respond_to?(color, :include_private) ? method(color).call : color
   color = get_hex_color(color, value)
 
   subject_width = text_width subject

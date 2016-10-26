@@ -30,6 +30,24 @@ describe 'svg helper' do
     expect(svg('test', '23')).to match(/#E05D44/)
   end
 
+  it 'generates color from percentage value' do
+    # Bright green
+    expect(svg('test', '95%')).to match(/#4C1/)
+    # Green
+    expect(svg('test', '94%')).to match(/#97CA00/)
+    # Red
+    expect(svg('test', '23%')).to match(/#E05D44/)
+  end
+
+  it 'generates color from float value' do
+    # Bright green
+    expect(svg('test', '95')).to match(/#4C1/)
+    # Green
+    expect(svg('test', '93.2%')).to match(/#97CA00/)
+    # Red
+    expect(svg('test', '23')).to match(/#E05D44/)
+  end
+
   it 'generates subject and value width' do
     expect(text_width('test')).to eq 20
     expect(text_width('value')).to eq 30
