@@ -1,0 +1,29 @@
+# Docker image for testing the badges app
+#
+#     docker build -t jmccann/badges:test -f Dockerfile.test .
+
+FROM ruby:2.3
+
+# Install/Configure ImageMagick
+RUN apt update && \
+  apt install -y \
+    imagemagick mlocate \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/*
+
+# RUN apt update
+# RUN apt install -y imagemagick mlocate
+RUN updatedb
+RUN wget http://www.imagemagick.org/Usage/scripts/imagick_type_gen
+RUN perl imagick_type_gen > /etc/ImageMagick-6/type.xml
+# RUN rm -f imagick_type_gen
+
+# Install Gems
+RUN apt update && \
+  apt install -y libpq-dev postgresql-server-dev-all \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/*
+ADD Gemfile Gemfile
+RUN bundle install
