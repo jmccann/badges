@@ -8,23 +8,12 @@ services:
 
 pipeline:
   unit_testing:
-    image: ruby:2.3
+    image: jmccann/badges:test
     environment:
       - DATABASE_DRIVER=postgres
       - DATABASE_CONFIG=postgres://postgres:mysecretpassword@127.0.0.1:5432/badges
     commands:
-      # Install/Configure ImageMagick
-      - apt update
-      - apt install -y imagemagick mlocate
-      - updatedb
-      - wget http://www.imagemagick.org/Usage/scripts/imagick_type_gen
-      - perl /drone/src/imagick_type_gen > /etc/ImageMagick-6/type.xml
-      - rm -f imagick_type_gen
-
-      # Install Gems
-      - rm -f Gemfile.lock
-      - apt install -y libpq-dev postgresql-server-dev-all
-      - bundle install --path .bundler
+      - sleep 3
 
       # Run Tests
       - bundle exec rake
