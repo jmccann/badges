@@ -1,6 +1,6 @@
 # Docker image for the badges app
 #
-#     docker build --rm=true -t jmccann/badges .
+#     docker build -t jmccann/badges .
 
 FROM phusion/passenger-ruby23:0.9.19
 
