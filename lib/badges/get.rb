@@ -29,7 +29,7 @@ end
 # Show badge details
 #
 get '/badges/:owner/:project/:name' do |owner, project, name|
-  badge = Badge.all(owner: owner, project: project, name: name)
+  badge = Badge.all(owner: owner, project: project, name: name, branch: nil)
   return [200, badge.first.to_json] if badge.count == 1
   [500, message: "Too many badges returned: #{badge.count}"] if badge.count > 1
 end
@@ -39,7 +39,26 @@ end
 #
 get '/badges/:owner/:project/:name/badge.svg' do |owner, project, name|
   content_type 'image/svg+xml'
-  badge = Badge.all(owner: owner, project: project, name: name)
+  badge = Badge.all(owner: owner, project: project, name: name, branch: nil)
+  return [200, badge.first.image] if badge.count == 1
+  [500, message: "Too many badges returned: #{badge.count}"] if badge.count > 1
+end
+
+#
+# Show badge details for a branch
+#
+get '/badges/:owner/:project/:name/:branch' do |owner, project, name, branch|
+  badge = Badge.all(owner: owner, project: project, name: name, branch: branch)
+  return [200, badge.first.to_json] if badge.count == 1
+  [500, message: "Too many badges returned: #{badge.count}"] if badge.count > 1
+end
+
+#
+# Return badge for a branch
+#
+get '/badges/:owner/:project/:name/:branch/badge.svg' do |owner, project, name, branch| # rubocop:disable LineLength
+  content_type 'image/svg+xml'
+  badge = Badge.all(owner: owner, project: project, name: name, branch: branch)
   return [200, badge.first.image] if badge.count == 1
   [500, message: "Too many badges returned: #{badge.count}"] if badge.count > 1
 end

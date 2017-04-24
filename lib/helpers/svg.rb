@@ -1,9 +1,9 @@
 require 'rasem'
 require 'rmagick'
 
-def get_hex_color(color, value)
-  return color if color =~ /#/
-  return method(color).call if !color.nil? && respond_to?(color, :include_private)
+def get_hex_color(c, value)
+  return c if c =~ /#/
+  return method(c).call if !c.nil? && respond_to?(c, :include_private)
   return color_from_range(value.to_i) if value =~ /(\d+(\.\d+)?)/
   method('green').call
 end
