@@ -14,7 +14,7 @@ describe 'delete /badges/:owner/:project/:name' do
     delete '/badges/jmccann/app1/climate2'
 
     expect(last_response.status).to eq 500
-    message = "No matching badge for 'jmccann/app1/climate2'"
+    message = 'No matching badge for jmccann/app1/climate2'
     expect(JSON.parse(last_response.body)).to include('message' => message)
   end
 end
@@ -33,7 +33,7 @@ describe 'delete /badges/:owner/:project/:name/:branch' do
     delete '/badges/jmccann/app1/climate2/pr12'
 
     expect(last_response.status).to eq 500
-    message = "No matching badge for 'jmccann/app1/climate2/pr12'"
+    message = 'No matching badge for jmccann/app1/climate2/pr12'
     expect(JSON.parse(last_response.body)).to include('message' => message)
   end
 
@@ -41,7 +41,7 @@ describe 'delete /badges/:owner/:project/:name/:branch' do
     delete '/badges/jmccann/app1/climate/pr13'
 
     expect(last_response.status).to eq 500
-    message = "No matching badge for 'jmccann/app1/climate/pr13'"
+    message = 'No matching badge for jmccann/app1/climate/pr13'
     expect(JSON.parse(last_response.body)).to include('message' => message)
   end
 end
