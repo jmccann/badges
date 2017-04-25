@@ -9,5 +9,5 @@ def new_badge(owner, project, name, data, branch = nil)
 
   Badge.new(owner: owner, project: project, name: name, full_name: full_name,
             branch: branch, created_at: DateTime.now,
-            image: svg(subject, URI.decode(data['status']), data['color']))
+            image: svg(subject, URI.decode(data['status'].to_s), data['color']))
 end
