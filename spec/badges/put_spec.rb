@@ -24,6 +24,25 @@ describe 'put /badges/:owner/:project/:name' do
     expect(badge.image).to match(/>27%</)
   end
 
+  it 'updates the badge with integer status' do
+    badge = Badge.all(owner: 'jmccann', project: 'app1', name: 'climate').first
+    expect(badge.image).to match(/>97%</)
+
+    put '/badges/jmccann/app1/climate', {
+      color: 'red',
+      status: '27'
+    }.to_json, headers
+
+    # Make sure we are redirecting
+    expect(last_response.status).to eq 302
+    follow_redirect!
+
+    expect(JSON.parse(last_response.body)['image']).not_to match(/>97%</)
+    expect(JSON.parse(last_response.body)['image']).to match(/>27</)
+    badge = Badge.all(owner: 'jmccann', project: 'app1', name: 'climate').first
+    expect(badge.image).to match(/>27</)
+  end
+
   it 'returns updated details of the badge' do
     put '/badges/jmccann/app1/climate', {
       color: 'red',

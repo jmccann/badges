@@ -27,7 +27,7 @@ def put_badge(owner, project, name, branch = nil) # rubocop:disable AbcSize, Met
     badge = new_badge(owner, project, name, data, branch)
   else
     badge = badges.first
-    badge.image = svg(subject, URI.decode(data['status']), data['color'])
+    badge.image = svg(subject, URI.decode(data['status'].to_s), data['color'])
   end
 
   # After creating object return details of it
