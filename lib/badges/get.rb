@@ -65,3 +65,9 @@ def get_badge_svg(owner, project, name, branch = nil)
   return [200, badge.first.image] if badge.count == 1
   [500, message: "Too many badges returned: #{badge.count}"] if badge.count > 1
 end
+
+def redirect_badge_details(badge, branch = nil)
+  url = "/badges/#{badge.full_name}"
+  url += "/#{badge.branch}" unless branch.nil?
+  redirect url if badge.save
+end

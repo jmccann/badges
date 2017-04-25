@@ -16,9 +16,7 @@ def post_badge(owner, project, name, data, branch = nil)
   badge = new_badge(owner, project, name, data, branch)
 
   # After creating object return details of it
-  url = "/badges/#{badge.full_name}"
-  url += "/#{badge.branch}" unless branch.nil?
-  redirect url if badge.save
+  redirect_badge_details badge, branch
 
   error = badge.errors.full_messages.join(', ')
   [500, { message: "Failed to create new Badge: #{error}" }.to_json]
