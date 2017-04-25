@@ -13,8 +13,6 @@ pipeline:
       - DATABASE_DRIVER=postgres
       - DATABASE_CONFIG=postgres://postgres:mysecretpassword@127.0.0.1:5432/badges
     commands:
-      - sleep 3
-
       # Run Tests
       - bundle exec rake
 

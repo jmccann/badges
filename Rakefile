@@ -19,4 +19,4 @@ end
 
 # Default task when running 'rake' will execute the following tasks, in order:
 # unit tests, functional tests, and style checking
-task default: %w(unit:spec style:ruby)
+task default: %w(style:ruby unit:spec)
