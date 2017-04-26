@@ -45,19 +45,19 @@ RSpec.configure do |config|
     Badge.auto_migrate!
     Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'coverage', full_name: 'jmccann/app1/coverage',
-              created_at: DateTime.now).save
+              branch: 'master', created_at: DateTime.now).save
     Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'climate', full_name: 'jmccann/app1/climate',
-              created_at: DateTime.now).save
+              branch: 'master', created_at: DateTime.now).save
     Badge.new(owner: 'jmccann', project: 'app1', image: test_svg,
               name: 'climate', full_name: 'jmccann/app1/climate',
               branch: 'pr12', created_at: DateTime.now).save
     Badge.new(owner: 'jmccann', project: 'app2', image: test_svg,
               name: 'coverage', full_name: 'jmccann/app2/coverage',
-              created_at: DateTime.now).save
+              branch: 'master', created_at: DateTime.now).save
     Badge.new(owner: 'jdoe', project: 'app1', image: test_svg,
               name: 'coverage', full_name: 'jdoe/app1/coverage',
-              created_at: DateTime.now).save
+              branch: 'master', created_at: DateTime.now).save
   end
 end
 

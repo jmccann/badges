@@ -24,7 +24,7 @@ describe 'post /badges/:owner/:project/:name' do
     expect(JSON.parse(last_response.body))
       .to include('id', 'created_at', 'image',
                   'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
-                  'full_name' => 'jmccann/app1/test', 'branch' => nil)
+                  'full_name' => 'jmccann/app1/test', 'branch' => 'master')
 
     # Make sure DB count increased by 1
     expect(Badge.count).to eq 1
@@ -44,7 +44,7 @@ describe 'post /badges/:owner/:project/:name' do
     expect(JSON.parse(last_response.body))
       .to include('id', 'created_at', 'image',
                   'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
-                  'full_name' => 'jmccann/app1/test', 'branch' => nil)
+                  'full_name' => 'jmccann/app1/test', 'branch' => 'master')
 
     # Make sure DB count increased by 1
     expect(Badge.count).to eq 1

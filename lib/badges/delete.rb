@@ -4,14 +4,14 @@ require 'json'
 require_relative '../helpers/datamapper'
 
 delete '/badges/:owner/:project/:name' do |owner, project, name|
-  delete_badge(owner, project, name, nil)
+  delete_badge(owner, project, name, 'master')
 end
 
 delete '/badges/:owner/:project/:name/:branch' do |owner, project, name, branch|
   delete_badge(owner, project, name, branch)
 end
 
-def delete_badge(owner, project, name, branch = nil) # rubocop:disable MethodLength, LineLength
+def delete_badge(owner, project, name, branch) # rubocop:disable MethodLength, LineLength
   badge = Badge.all(owner: owner, project: project, name: name, branch: branch)
 
   if badge.count == 1
@@ -26,8 +26,7 @@ def delete_badge(owner, project, name, branch = nil) # rubocop:disable MethodLen
   end
 
   if badge.count.zero?
-    error = "No matching badge for #{owner}/#{project}/#{name}"
-    error += "/#{branch}" unless branch.nil?
+    error = "No matching badge for #{owner}/#{project}/#{name}/#{branch}"
     return [500, { message: error }.to_json]
   end
 

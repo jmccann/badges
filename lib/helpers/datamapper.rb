@@ -22,7 +22,7 @@ class Badge
   property :name, String, required: true, key: true
   property :owner, String, required: true, key: true
   property :project, String, required: true, key: true
-  property :branch, String
+  property :branch, String, required: true, key: true
   property :full_name, String
   property :image, String, required: true, length: 1500
   property :created_at, DateTime

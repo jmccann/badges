@@ -7,14 +7,14 @@ require_relative '../helpers/data'
 require_relative '../helpers/svg'
 
 put '/badges/:owner/:project/:name' do |owner, project, name|
-  put_badge(owner, project, name, nil)
+  put_badge(owner, project, name, 'master')
 end
 
 put '/badges/:owner/:project/:name/:branch' do |owner, project, name, branch|
   put_badge(owner, project, name, branch)
 end
 
-def put_badge(owner, project, name, branch = nil) # rubocop:disable AbcSize, MethodLength, LineLength
+def put_badge(owner, project, name, branch) # rubocop:disable AbcSize, MethodLength, LineLength
   subject = data.key?('subject') ? data['subject'] : name
 
   badges = Badge.all(owner: owner, project: project, name: name, branch: branch)
@@ -31,7 +31,7 @@ def put_badge(owner, project, name, branch = nil) # rubocop:disable AbcSize, Met
   end
 
   # After creating object return details of it
-  redirect_badge_details badge, branch
+  redirect_badge_details badge
 
   error = badge.errors.full_messages.join(', ')
   [500, { message: "Failed to update the Badge: #{error}" }.to_json]

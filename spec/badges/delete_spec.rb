@@ -14,7 +14,7 @@ describe 'delete /badges/:owner/:project/:name' do
     delete '/badges/jmccann/app1/climate2'
 
     expect(last_response.status).to eq 500
-    message = 'No matching badge for jmccann/app1/climate2'
+    message = 'No matching badge for jmccann/app1/climate2/master'
     expect(JSON.parse(last_response.body)).to include('message' => message)
   end
 end
