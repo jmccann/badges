@@ -18,7 +18,6 @@ end
 #
 class Badge
   include DataMapper::Resource
-  property :id, Serial
   property :name, String, required: true, key: true
   property :owner, String, required: true, key: true
   property :project, String, required: true, key: true

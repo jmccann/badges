@@ -55,7 +55,7 @@ describe 'put /badges/:owner/:project/:name' do
     follow_redirect!
 
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at', 'full_name',
+      .to include('created_at', 'full_name',
                   'owner' => 'jmccann', 'project' => 'app1',
                   'name' => 'climate')
   end
@@ -92,7 +92,7 @@ describe 'put /badges/:owner/:project/:name' do
     follow_redirect!
 
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at',
+      .to include('created_at',
                   'full_name' => 'jmccann/app1/climate',
                   'owner' => 'jmccann', 'project' => 'app1',
                   'name' => 'climate', 'branch' => 'pr12')
@@ -113,7 +113,7 @@ describe 'put /badges/:owner/:project/:name' do
 
     # Make sure we get back object details
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at', 'image',
+      .to include('created_at', 'image',
                   'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
                   'full_name' => 'jmccann/app1/test')
 
@@ -136,7 +136,7 @@ describe 'put /badges/:owner/:project/:name' do
 
     # Make sure we get back object details
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at', 'image',
+      .to include('created_at', 'image',
                   'owner' => 'jmccann', 'project' => 'app1', 'name' => 'test',
                   'full_name' => 'jmccann/app1/test', 'branch' => 'pr11')
 

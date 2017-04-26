@@ -9,7 +9,7 @@ describe 'get /badges' do
 
   it 'should list each badge by their full name' do
     get '/badges'
-    expect(JSON.parse(last_response.body).first).to eq 'jmccann/app1/coverage'
+    expect(JSON.parse(last_response.body)).to include('jmccann/app1/coverage')
   end
 end
 
@@ -34,7 +34,7 @@ describe 'get /badges/:owner/:project/:name' do
     get '/badges/jmccann/app1/climate'
 
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at', 'full_name',
+      .to include('created_at', 'full_name',
                   'owner' => 'jmccann', 'project' => 'app1',
                   'name' => 'climate')
   end
@@ -74,7 +74,7 @@ describe 'get /badges/:owner/:project/:name/:branch' do
     get '/badges/jmccann/app1/climate/pr12'
 
     expect(JSON.parse(last_response.body))
-      .to include('id', 'created_at', 'full_name',
+      .to include('created_at', 'full_name',
                   'owner' => 'jmccann', 'project' => 'app1',
                   'name' => 'climate', 'branch' => 'pr12')
   end
